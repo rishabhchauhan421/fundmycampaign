@@ -1,5 +1,4 @@
 'use client';
-import MaxWidthWrapper from '@/app/components/MaxWidthWrapper';
 import factory from '@/ethereum/factory';
 import web3 from '@/ethereum/web3';
 import {
@@ -8,12 +7,15 @@ import {
   XCircleIcon,
 } from '@heroicons/react/20/solid';
 import React from 'react';
+import { useRouter } from 'next/navigation';
+import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 
-export default function Example() {
+export default function Page() {
   const [contribution, setContribution] = React.useState(0);
   const [loading, setLoading] = React.useState(false);
   const [msg, setMsg] = React.useState('');
   const [errorFlag, setErrorFlag] = React.useState(false);
+  const router = useRouter();
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -28,6 +30,7 @@ export default function Example() {
         });
       setLoading(false);
       setMsg('Campaign created successfully');
+      router.push('/');
     } catch (err) {
       setLoading(false);
       setErrorFlag(true);

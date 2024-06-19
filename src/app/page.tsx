@@ -1,6 +1,6 @@
 import factory from '@/ethereum/factory';
 import Link from 'next/link';
-import MaxWidthWrapper from './components/MaxWidthWrapper';
+import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import { classNames } from '@/lib/utils';
 
 const statuses = {
@@ -10,7 +10,9 @@ const statuses = {
 };
 
 export default async function Home() {
-  const deployedCampaigns = await factory.methods.getDeployedCampaign().call();
+  const deployedCampaigns: any = await factory.methods
+    .getDeployedCampaign()
+    .call();
 
   return (
     <MaxWidthWrapper>
@@ -30,12 +32,12 @@ export default async function Home() {
                 >
                   View All
                 </button>
-                <button
-                  type="button"
+                <Link
+                  href={'/campaigns/new'}
                   className="ml-3 inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Create
-                </button>
+                </Link>
               </div>
             </div>
             <ul role="list" className="divide-y divide-gray-100">
@@ -61,10 +63,10 @@ export default async function Home() {
                   </div>
                   <div className="flex flex-none items-center gap-x-4">
                     <Link
-                      href={'/'}
+                      href={`/campaigns/${campaign}`}
                       className="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block"
                     >
-                      View project
+                      View campaign
                       <span className="sr-only">, {campaign}</span>
                     </Link>
                   </div>
